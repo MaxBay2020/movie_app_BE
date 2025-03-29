@@ -7,8 +7,11 @@ class MovieController {
      * @param res
      */
     static queryAllMovies = async (req: Request, res: Response) => {
+        const { email } = req.body
+
+
         return res.status(500).send({
-            message: 'queryAllMovies'
+            message: `queryAllMovies with email ${email}`
         })
     }
 
@@ -19,8 +22,10 @@ class MovieController {
      */
     static queryMovieByMovieId = async (req: Request, res: Response) => {
         const { movieId } = req.params
+        const { email } = req.body
+
         return res.status(500).send({
-            message: `query movie ${movieId}`,
+            message: `query movie ${movieId} with email ${email}`,
         })
     }
 
@@ -34,11 +39,12 @@ class MovieController {
             id,
             title,
             publishingYear,
-            posterImage
+            posterImage,
+            email
         } = req.body
 
         return res.status(500).send({
-            message: `createMovie`,
+            message: `create movie with email ${email}`,
         })
     }
 
@@ -52,13 +58,14 @@ class MovieController {
             id,
             title,
             publishingYear,
-            posterImage
+            posterImage,
+            email
         } = req.body
 
         const { movieId } = req.params
 
         return res.status(500).send({
-            message: `update movie ${movieId}`,
+            message: `update movie ${movieId} with email ${email}`,
         })
     }
 }

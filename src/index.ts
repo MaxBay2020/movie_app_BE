@@ -3,10 +3,13 @@ import bodyParser from 'body-parser'
 import AppDataSource from "./data-source";
 import cors from "cors";
 import dotenv from 'dotenv'
+import cookieParser from "cookie-parser";
 import indexRoutes from "./routes/indexRoutes";
+import verifyUser from "./middlewares/verifyUser";
 
 const app: Express = express()
 
+app.use(cookieParser())
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -16,6 +19,9 @@ app.use(bodyParser.json())
 app.use(cors())
 dotenv.config()
 
+
+// global middleware
+app.use(verifyUser)
 
 // routes
 app.use('/', indexRoutes)

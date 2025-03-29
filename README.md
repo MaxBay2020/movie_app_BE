@@ -8,5 +8,8 @@ Steps to run this project:
 
 
 FEATURES:
-1. Entity seed data generated fully usable.
-2. 
+1. Entity data seeds generated, fully usable.
+2. Authentication with JWT, stored in HttpOnly cookie to prevent from XSS, CSRF attack.
+3. Middleware verification.
+4. Error class created for better maintenance.
+5. DTO validation.
