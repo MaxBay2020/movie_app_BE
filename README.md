@@ -8,3 +8,5 @@ Steps to run this project:
 
 
 FEATURES:
+1. Entity seed data generated fully usable.
+2. 

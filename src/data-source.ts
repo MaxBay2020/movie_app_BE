@@ -1,19 +1,25 @@
 import "reflect-metadata"
-import { DataSource } from "typeorm"
-import { User } from "./entity/User"
+import {DataSource, DataSourceOptions} from "typeorm"
+import {SeederOptions} from "typeorm-extension";
 
-export const AppDataSource = new DataSource({
+
+const dataSourceConfig: DataSourceOptions & SeederOptions = {
     type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "123456root",
-    database: "movie_app",
+    host: process.env.DB_PORT || "localhost",
+    port: Number(process.env.DB_PORT) || 3306,
+    username: process.env.DB_USERNAME ||  "root",
+    password: process.env.DB_PASSWORD || "123456root",
+    database: process.env.DB_NAME || "movie_app",
     synchronize: false,
     logging: false,
-    entities: [],
+    entities: ['src/entities/**/*.ts'],
     migrations: [],
     subscribers: [],
-})
+    seeds: ["src/db/seeds/**/*{.ts,.js}"],
+    factories: ["src/db/factories/**/*{.ts,.js}"]
+}
+
+
+const AppDataSource = new DataSource(dataSourceConfig)
 
 export default AppDataSource
