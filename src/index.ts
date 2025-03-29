@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import AppDataSource from "./data-source";
 import cors from "cors";
 import dotenv from 'dotenv'
+import indexRoutes from "./routes/indexRoutes";
 
 const app: Express = express()
 
@@ -17,7 +18,7 @@ dotenv.config()
 
 
 // routes
-
+app.use('/', indexRoutes)
 
 
 // error handler
