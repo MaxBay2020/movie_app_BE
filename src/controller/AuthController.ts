@@ -4,7 +4,7 @@ import User from "../entities/User";
 import Error, {Message, StatusCode} from "../utils/enums";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken'
-import LoginDTO from "../dto/LoginDTO";
+import LoginDTO from "../dto/auth/LoginDTO";
 import {validate} from "class-validator";
 
 class AuthController {

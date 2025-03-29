@@ -12,4 +12,4 @@ FEATURES:
 2. Authentication with JWT, stored in HttpOnly cookie to prevent from XSS, CSRF attack.
 3. Middleware verification.
 4. Error class created for better maintenance.
-5. DTO validation.
+5. DTO implementation.
