@@ -77,7 +77,7 @@ class MovieController {
             // succeed return
             return res.status(StatusCode.E200).send({
                 movies: movieList,
-                total: totalMoviesCount
+                total: Math.ceil(totalMoviesCount / queryAllMoviesDTO.limit)
             })
 
         }catch (e) {

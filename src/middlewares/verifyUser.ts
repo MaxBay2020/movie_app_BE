@@ -20,7 +20,6 @@ const verifyUser = (req: Request, res: Response, next: NextFunction) => {
     // get token from cookie
     const token = req.cookies.token || req.headers.authorization?.split(' ')[1]
 
-
     // check if token is there
     if(!token){
         const error = new Error(null, StatusCode.E400, Message.ErrParams)

@@ -16,6 +16,7 @@ export enum Message {
     ErrCreate = 'Cannot create record in the database',
     ErrParams = 'Necessary params NOT provided or invalid data',
     ErrToken = 'Token is NOT valid',
+    ErrSourceNotFound = 'Resource not found',
     AuthorizationError = 'You do NOT have authorization',
     NoAuth = 'Your are not authenticated',
     EmailOrPasswordError = 'Email or password NOT correct',

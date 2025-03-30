@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import cookieParser from "cookie-parser";
 import indexRoutes from "./routes/indexRoutes";
 import verifyUser from "./middlewares/verifyUser";
+import Error, {Message, StatusCode} from "./utils/enums";
 
 const app: Express = express()
 
@@ -16,7 +17,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+}))
 dotenv.config()
 
 
@@ -29,8 +33,10 @@ app.use('/', indexRoutes)
 
 // error handler
 app.use('*', (req: Request, res: Response) => {
-    return res.status(404).send({
-        message: 'NO MATCHED ROUTER'
+    const error = new Error<null>(null, StatusCode.E404, Message.ErrSourceNotFound)
+    return res.status(error.statusCode).send({
+        info: error.info,
+        message: error.message
     })
 })
 
