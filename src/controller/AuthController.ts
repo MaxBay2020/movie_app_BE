@@ -21,7 +21,7 @@ class AuthController {
         const errors = await validate(loginDTO)
 
         if(errors.length > 0){
-            const error = new Error<null>(null, StatusCode.E400, Message.ErrParams)
+            const error = new Error(errors, StatusCode.E400, Message.ErrParams)
             return res.status(error.statusCode).send({
                 info: error.info,
                 message: error.message

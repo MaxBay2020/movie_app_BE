@@ -6,6 +6,9 @@ import {plainToInstance} from "class-transformer";
 import QueryAllMoviesDTO from "../dto/movie/QueryAllMoviesDTO";
 import {validate} from "class-validator";
 import QueryMovieByMovieIdDTO from "../dto/movie/QueryMovieByMovieIdDTO";
+import LoginDTO from "../dto/auth/LoginDTO";
+import CreateMovieDTO from "../dto/movie/CreateMovieDTO";
+import User from "../entities/User";
 
 class MovieController {
     /**
@@ -157,18 +160,86 @@ class MovieController {
      * @param req
      * @param res
      */
-    static createMovie = async (req: Request, res: Response) => {
+    static createMovie = async (req: any, res: Response) => {
         const {
-            id,
             title,
             publishingYear,
-            posterImage,
-            email
+            email,
+            file
         } = req.body
 
-        return res.status(500).send({
-            message: `create movie with email ${email}`,
+        console.log(file.buffer)
+
+        let imageUrl = ''
+        if(!file){
+            imageUrl = process.env.DEFAULT_IMAGE_URL!
+        }
+
+
+        console.log(imageUrl)
+
+        // DTO validation
+        const createMovieDTO = plainToInstance(CreateMovieDTO, {
+            title,
+            publishingYear,
+            email
         })
+        const errors = await validate(createMovieDTO)
+
+        if(errors.length > 0){
+            const error = new Error(errors, StatusCode.E400, Message.ErrParams)
+            return res.status(error.statusCode).send({
+                info: error.info,
+                message: error.message
+            })
+        }
+
+        // save to db
+        try {
+            const user: User =  await AppDataSource.getRepository(User)
+                .createQueryBuilder('user')
+                .where('user.email = :email', { email })
+                .getOne() as User
+
+            // user not found
+            if(!user){
+                const error = new Error(null, StatusCode.E404, Message.ErrFind)
+                return res.status(error.statusCode).send({
+                    info: '',
+                    message: error.message
+                })
+            }
+
+
+            console.log(user)
+
+            const newMovie = Movie.create({
+                title,
+                publishingYear,
+                imageUrl,
+                user
+            })
+
+            console.log(newMovie)
+
+            // save to db
+            await newMovie.save()
+
+            return res.status(StatusCode.E200).send({
+                info: '',
+                message: Message.OK
+            })
+
+        }catch (e){
+            console.log(e.message)
+            const error = new Error<{}>(e, StatusCode.E500, Message.ServerError)
+            return res.status(error.statusCode).send({
+                info: error.info,
+                message: error.message
+            })
+        }
+
+
     }
 
     /**

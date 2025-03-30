@@ -1,3 +1,5 @@
+import {MAX_IMAGE_SIZE} from "./helper";
+
 export enum StatusCode {
     E200 = 200, // OK
     E400 = 400, // bad request due to client error
@@ -21,7 +23,7 @@ export enum Message {
     NoAuth = 'Your are not authenticated',
     EmailOrPasswordError = 'Email or password NOT correct',
     UserExist = 'Email has already been registered',
-    ServerError = 'There is something wrong with server, please try again later',
+    ServerError = 'There is something wrong with server, please try again later'
 }
 
 class Error<T> {
