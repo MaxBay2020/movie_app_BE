@@ -22,7 +22,7 @@ const verifyUser = (req: Request, res: Response, next: NextFunction) => {
 
     // check if token is there
     if(!token){
-        const error = new Error(null, StatusCode.E400, Message.ErrParams)
+        const error = new Error(null, StatusCode.E401, Message.ErrToken)
         return res.status(error.statusCode).send({
             info: error.info,
             message: error.message
@@ -33,7 +33,7 @@ const verifyUser = (req: Request, res: Response, next: NextFunction) => {
        jwt.verify(token, process.env.JWT_SECRET!, async (err: any, decodedData: any) => {
            // if token not valid or expires
            if(err){
-               const error = new Error<null>(err, StatusCode.E402, Message.ErrToken)
+               const error = new Error<null>(err, StatusCode.E401, Message.ErrToken)
                return res.status(error.statusCode).send({
                    info: error.info,
                    message: error.message

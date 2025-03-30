@@ -88,6 +88,24 @@ class AuthController {
            })
        }
     }
+
+
+    /**
+     * logout user
+     * @param req
+     * @param res
+     */
+    static logout = async (req: Request, res: Response) => {
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+        })
+
+        return res.status(StatusCode.E200).send({
+            message: Message.OK
+        })
+    }
 }
 
 export default AuthController

@@ -2,7 +2,7 @@ export enum StatusCode {
     E200 = 200, // OK
     E400 = 400, // bad request due to client error
     E401 = 401, // authorization error
-    E402 = 402, // authentication error
+    E402 = 402, // payment error
     E403 = 403, // email or password NOT correct
     E404 = 404, // resources NOT found,
     E405 = 405, // need to refresh,
