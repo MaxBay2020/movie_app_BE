@@ -8,6 +8,7 @@ import indexRoutes from "./routes/indexRoutes";
 import verifyUser from "./middlewares/verifyUser";
 import Error, {Message, StatusCode} from "./utils/enums";
 
+
 const app: Express = express()
 
 app.use(cookieParser())

@@ -20,13 +20,16 @@ export class Movie extends BaseClass{
     publishingYear: number
 
     @Column({
-        nullable: false
+        nullable: true
     })
     @IsString()
-    imageUrl: string
+    imageName: string
 
     @ManyToOne(() => User, user => user.movieList)
     user: User
+
+
+    imageUrl: string;
 
 }
 

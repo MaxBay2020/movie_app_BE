@@ -1,3 +1,4 @@
+
 export const routesWithoutVerifyUser = [
     '/auth/login',
     '/auth/register',
@@ -8,3 +9,4 @@ export const routesWithoutVerifyUser = [
 export const MAX_IMAGE_SIZE = 10 * 1024 * 1024
 
 export const allowedMimeType = ['image/jpeg', 'image/png', 'image/jpg' ]
+
