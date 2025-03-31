@@ -296,18 +296,95 @@ class MovieController {
      */
     static updateMovieByMovieId = async (req: Request, res: Response) => {
         const {
-            id,
             title,
             publishingYear,
-            posterImage,
-            email
+            email,
+            file
         } = req.body
 
         const {movieId} = req.params
 
-        return res.status(500).send({
-            message: `update movie ${movieId} with email ${email}`,
-        })
+
+        try {
+            // DTO validation
+            const createMovieDTO = plainToInstance(CreateMovieDTO, {
+                title,
+                publishingYear,
+                email
+            })
+
+            const errors = await validate(createMovieDTO)
+
+            if (errors.length > 0) {
+                const error = new Error(errors, StatusCode.E400, Message.ErrParams)
+                return res.status(error.statusCode).send({
+                    info: error.info,
+                    message: error.message
+                })
+            }
+
+            // query user by email
+            const user: User = await AppDataSource.getRepository(User)
+                .createQueryBuilder('user')
+                .where('user.email = :email', {email})
+                .getOne() as User
+
+            // user not found
+            if (!user) {
+                const error = new Error(null, StatusCode.E404, Message.ErrFind)
+                return res.status(error.statusCode).send({
+                    info: '',
+                    message: error.message
+                })
+            }
+
+            if(!file){
+                // if not update image
+                await AppDataSource
+                    .createQueryBuilder()
+                    .update(Movie)
+                    .set({title, publishingYear})
+                    .where('id = :movieId', { movieId })
+                    .execute()
+
+
+            }else{
+                // if update image
+                const imageName = uuidv4()
+                const params = {
+                    Bucket: process.env.S3_BUCKET_NAME!,
+                    Key: imageName,
+                    Body: file.buffer,
+                    ContentType: file.mimetype
+                }
+
+                const command = new PutObjectCommand(params)
+
+                await s3.send(command)
+
+                // update data
+                await AppDataSource
+                    .createQueryBuilder()
+                    .update(Movie)
+                    .set({title, publishingYear, imageName})
+                    .where('id = :movieId', { movieId })
+                    .execute()
+            }
+
+            return res.status(StatusCode.E200).send({
+                info: '',
+                message: Message.OK
+            })
+
+
+        }catch (e) {
+            console.log(e.message)
+            const error = new Error<{}>(e, StatusCode.E500, Message.ServerError)
+            return res.status(error.statusCode).send({
+                info: error.info,
+                message: error.message
+            })
+        }
     }
 }
 

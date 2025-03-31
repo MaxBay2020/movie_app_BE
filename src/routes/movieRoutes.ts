@@ -11,6 +11,6 @@ movieRoutes.get('/:movieId', MovieController.queryMovieByMovieId)
 // create movie
 movieRoutes.post('/', upload,  MovieController.createMovie)
 // edit movie by movie id
-movieRoutes.put('/:movieId', MovieController.updateMovieByMovieId)
+movieRoutes.put('/:movieId', upload, MovieController.updateMovieByMovieId)
 
 export default movieRoutes

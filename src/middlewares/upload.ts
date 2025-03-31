@@ -5,7 +5,6 @@ import Error, {Message, StatusCode} from "../utils/enums";
 import {Writable} from "stream";
 
 const upload = (req: Request, res: Response, next: NextFunction) => {
-
     const options = {
         maxFileSize: MAX_IMAGE_SIZE,
         filter: ({mimetype}: any) => {
@@ -31,6 +30,21 @@ const upload = (req: Request, res: Response, next: NextFunction) => {
 
     form.parse(req, (e, fields, files) => {
 
+        // user not updating image
+        if(fields.posterImage){
+
+            const title = fields.title ? fields.title[0] : undefined
+            const publishingYear = fields.publishingYear ? fields.publishingYear[0] : undefined
+
+            req.body = {
+                ...req.body,
+                title,
+                publishingYear,
+            }
+
+            return next()
+        }
+
         if (e) {
             if(e.code === 1009){
                 // file too large
@@ -48,13 +62,12 @@ const upload = (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        const {email} = req.body
 
         const title = fields.title ? fields.title[0] : undefined
         const publishingYear = fields.publishingYear ? fields.publishingYear[0] : undefined
         const file = files.posterImage ? files.posterImage[0] : undefined
 
-        // console.log(file)
+
         req.body = {
             ...req.body,
             title,
