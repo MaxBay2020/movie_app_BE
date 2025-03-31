@@ -271,7 +271,6 @@ class MovieController {
             }
 
 
-
             return res.status(StatusCode.E200).send({
                 info: '',
                 message: Message.OK
