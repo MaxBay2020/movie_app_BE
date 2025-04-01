@@ -85,7 +85,7 @@ yarn start
 
 
 # Requirement met description:
-1. Deployed through `AWS EC2`.
+1. Deployed through `AWS EC2` and `AWS Route 53`.
 2. `Pagination` for query all movies.
 3. `DTO` validation implemented, more secure and robust.
 4. `Pagination` for query all movies.
