@@ -10,7 +10,7 @@ import Error, {Message, StatusCode} from "./utils/enums";
 
 
 const app: Express = express()
-
+dotenv.config()
 app.use(cookieParser())
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -19,10 +19,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTEND_ORIGIN,
     credentials: true,
 }))
-dotenv.config()
+
 
 
 // global middleware
