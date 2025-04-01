@@ -85,18 +85,19 @@ yarn start
 
 
 # Requirement met description:
-1. `Pagination` for query all movies.
-2. `DTO` validation implemented, more secure and robust.
-3. `Pagination` for query all movies.
-4. Detailed `API documentation`
+1. Deployed through `AWS EC2`.
+2. `Pagination` for query all movies.
+3. `DTO` validation implemented, more secure and robust.
+4. `Pagination` for query all movies.
+5. Detailed `API documentation`
 
 # Bonus done:
-5. Entity data `seeds` generated, fully usable.
-6. Authentication with `JWT`, stored in HttpOnly cookie to `prevent from XSS, CSRF attack`.
-7. `Pagination` for query all movies.
-8. `Middleware` verification and file uploader.
-9. `Custom Error class` created for error management.
-10. `S3 file with presigned URL` management implementation.
+6. Entity data `seeds` generated, fully usable.
+7. Authentication with `JWT`, stored in HttpOnly cookie to `prevent from XSS, CSRF attack`.
+8. `Pagination` for query all movies.
+9. `Middleware` verification and file uploader.
+10. `Custom Error class` created for error management.
+11. `S3 file with presigned URL` management implementation.
 
 # Future optimization:
 1. Using Message Queue to handle file upload.
