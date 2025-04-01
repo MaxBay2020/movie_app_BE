@@ -100,3 +100,4 @@ yarn start
 
 # Future optimization:
 1. Using Message Queue to handle file upload.
+2. Buying a domain with AWS Route 53 or similar domain provider.
