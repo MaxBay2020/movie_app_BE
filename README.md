@@ -6,7 +6,7 @@ The backend of the Movie App is built with `Node.js`, `Express`, `TypeScript`, `
 
 
 ## Requirement met description:
-1. Deployed through `AWS EC2` and `AWS Route 53`. ✅
+1. Deployed through `AWS EC2` and `AWS Route 53` with `systemd` service management. ✅
 2. `DTO` validation on coming requests. ✅
 3. `Pagination` for movie list. ✅
 4. Detailed `API documentation`. ✅
