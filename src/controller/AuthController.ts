@@ -98,8 +98,8 @@ class AuthController {
     static logout = async (req: Request, res: Response) => {
         res.clearCookie('token', {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            secure: process.env.NODE_ENV === 'PRODUCTION',
+            sameSite: process.env.NODE_ENV === "PRODUCTION" ? 'none' : "strict",
         })
 
         return res.status(StatusCode.E200).send({
