@@ -53,7 +53,8 @@ class MovieController {
                 AppDataSource
                     .getRepository(Movie)
                     .createQueryBuilder('movie')
-                    .innerJoinAndSelect('movie.user', 'user', 'user.email = :email', {email})
+                    .innerJoin('movie.user', 'user')
+                    .where('user.email = :email', {email})
                     .select([
                         'movie.id',
                         'movie.title',
